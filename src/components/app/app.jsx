@@ -2,8 +2,8 @@ import React from "react";
 
 import { getIngredientsFromAPI } from '../../utils/api';
 import { AppHeader } from '../app-header/app-header'
-import {BurgerIngredients} from "../burger-ingredients/burger-ingredients";
-import {BurgerConstructor} from "../burger-constructor/burger-constructor";
+import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
+import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 
 import style from './app.module.css';
 
@@ -25,8 +25,12 @@ export const App = () => {
         <div className={style.app}>
             <AppHeader/>
             <div className={style.constructor_of_ingredient}>
-                {isLoaded && <BurgerIngredients cards={ingredients}/>}
-                {isLoaded && <BurgerConstructor cards={ingredients}/>}
+            {isLoaded &&
+                <> 
+                <BurgerIngredients cards={ingredients}/>
+                <BurgerConstructor cards={ingredients}/>
+                </>
+            }
             </div>
         </div>
     )

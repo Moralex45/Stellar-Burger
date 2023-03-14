@@ -1,5 +1,5 @@
 import React from "react";
-import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./tab-ingredients.module.css";
 
 export const TabIngredients = () => {

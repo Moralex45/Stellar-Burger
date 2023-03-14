@@ -21,3 +21,14 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.button {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 58px;
+    right: 47px;
+    background: inherit;
+    border: none;
+    cursor: pointer;
+  }

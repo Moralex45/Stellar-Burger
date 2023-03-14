@@ -1,5 +1,6 @@
-import {TabIngredients} from "../tab-ingredients/tab-ingredients";
-import {IngredientsCard} from "../ingredients-card/ingredients-card";
+import { TabIngredients } from "../tab-ingredients/tab-ingredients";
+import { IngredientsCard } from "../ingredients-card/ingredients-card";
+import { PropTypesDataObject } from '../../utils/types';
 import style from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 
@@ -41,5 +42,5 @@ export const BurgerIngredients = ({cards}) => {
 }
 
 BurgerIngredients.propTypes = {
-    cards: PropTypes.array.isRequired
+    cards: PropTypes.arrayOf(PropTypesDataObject)
 }

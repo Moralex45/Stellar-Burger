@@ -1,8 +1,9 @@
 import React from "react";
-import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, ConstructorElement, CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {OrderDetails} from "../order-details/order-details";
-import {Modal} from "../modal/modal";
+import { OrderDetails } from "../order-details/order-details";
+import { Modal } from "../modal/modal";
+import { PropTypesDataObject } from '../../utils/types';
 import style from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
 
@@ -16,7 +17,6 @@ export const BurgerConstructor = ({cards}) => {
                 <ConstructorElement
                     key={card._id}
                     type={card.type}
-                    isLocked={true}
                     text={card.name}
                     price={card.price}
                     thumbnail={card.image_mobile}
@@ -46,7 +46,7 @@ export const BurgerConstructor = ({cards}) => {
                 <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text="Краторная булка N-200i"
+                    text="Краторная булка N-200i (верх)" 
                     price={200}
                     thumbnail='https://code.s3.yandex.net/react/code/bun-02-mobile.png'
                 />
@@ -56,7 +56,7 @@ export const BurgerConstructor = ({cards}) => {
                 <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text="Краторная булка N-200i"
+                    text="Краторная булка N-200i (низ)"
                     price={200}
                     thumbnail='https://code.s3.yandex.net/react/code/bun-02-mobile.png'
                 />
@@ -83,5 +83,5 @@ export const BurgerConstructor = ({cards}) => {
 }
 
 BurgerConstructor.propTypes = {
-    cards: PropTypes.array.isRequired
+    cards: PropTypes.arrayOf(PropTypesDataObject)
 }

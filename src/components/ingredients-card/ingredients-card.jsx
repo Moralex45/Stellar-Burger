@@ -1,12 +1,12 @@
 import React from "react";
-import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Modal} from "../modal/modal";
-import {IngredientDetails} from "../ingredient-details/ingredient-details";
+import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Modal } from "../modal/modal";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import style from "./ingredients-card.module.css";
 
 export const IngredientsCard = (card) => {
     const [modalOpen, setModalOpened] = React.useState(false);
-    
+
     function setOpenModal() {
         setModalOpened(true)
     }
@@ -16,11 +16,13 @@ export const IngredientsCard = (card) => {
     }
 
     return (
-        <div className="mb-8"
+        <section className="mb-8"
             key={card._id}
             id="open-modal"
-            onClick={setOpenModal}>
-            <img src={card.image} className={style.ingredient_image}
+            >
+            <img src={card.image} 
+                className={style.ingredient_image} 
+                onClick={setOpenModal}
                 alt={card.name}/>
             <div className={`${style.price_flex} mt-1 mb-1`}>
                 <p className="text text_type_digits-medium mr-2">{card.price}</p>
@@ -33,9 +35,11 @@ export const IngredientsCard = (card) => {
                     extraClass="m-1"/>
             </div>
             {modalOpen && (
-                <Modal onClick={setCloseModal} modalHeader="Детали ингредиента">
+                <Modal onClick={setCloseModal} 
+                    modalHeader="Детали ингредиента">
                     <IngredientDetails card={card}/>
-                </Modal>)}
-        </div>
+                </Modal>)
+            }
+        </section>
     )
 }
