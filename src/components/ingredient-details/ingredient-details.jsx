@@ -1,4 +1,4 @@
-import { PropTypesDataObject } from '../../utils/types';
+import { IngredientPropType } from '../../utils/types';
 
 import style from "./ingredient-details.module.css"
 import PropTypes from "prop-types";
@@ -31,5 +31,5 @@ export const IngredientDetails = ({card}) => {
 }
 
 IngredientDetails.propTypes = {
-    card: PropTypesDataObject.isRequired,
+    card: IngredientPropType.isRequired,
 }

@@ -3,7 +3,7 @@ import { Button, ConstructorElement, CurrencyIcon, DragIcon } from "@ya.praktiku
 
 import { OrderDetails } from "../order-details/order-details";
 import { Modal } from "../modal/modal";
-import { PropTypesDataObject } from '../../utils/types';
+import { IngredientPropType } from '../../utils/types';
 import style from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
 
@@ -83,5 +83,5 @@ export const BurgerConstructor = ({cards}) => {
 }
 
 BurgerConstructor.propTypes = {
-    cards: PropTypes.arrayOf(PropTypesDataObject)
+    cards: PropTypes.arrayOf(IngredientPropType.isRequired).isRequired
 }
