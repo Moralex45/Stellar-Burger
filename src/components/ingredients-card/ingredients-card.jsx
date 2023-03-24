@@ -1,45 +1,55 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from 'react-redux';
+import { useDrag } from 'react-dnd';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Modal } from "../modal/modal";
-import { IngredientDetails } from "../ingredient-details/ingredient-details";
+
 import style from "./ingredients-card.module.css";
 
-export const IngredientsCard = (card) => {
-    const [modalOpen, setModalOpened] = React.useState(false);
+export const IngredientsCard = ({ data }) => {
 
-    function setOpenModal() {
-        setModalOpened(true)
-    }
+    const addedIngredients = useSelector((state) => state.ingredientReducer.addedIngredients);
+    const addedBun = useSelector((state) => state.ingredientReducer.addedBun);
+    const [id] = useState(data._id);
+    const [type] = useState(data.type);
+    const [isDisabled, setIsDisabled] = useState(true);
 
-    function setCloseModal() {
-        setModalOpened(false)
-    }
+    const [{ isDrag }, dragRef] = useDrag({
+        type: 'ingredient',
+        item: { id, type },
+        collect: (monitor) => ({
+          isDrag: monitor.isDragging(),
+        })
+    });
 
+    let ingredientsCounter = 0;
+
+    addedIngredients.forEach((ingredient) =>
+      ingredient._id === id ? (ingredientsCounter += 1) : ingredientsCounter
+    );
+  
+    [addedBun].forEach((bun) => bun._id === id ? (ingredientsCounter += 2) : ingredientsCounter);
+
+    useEffect(() => {
+        if(type !== 'bun' && addedBun.length === 0) {
+          setIsDisabled(true);
+        } else {
+          setIsDisabled(false);
+        }
+      }, [addedBun, type]);
+    
     return (
-        <section className="mb-8"
-            key={card._id}
-            id="open-modal"
-            >
-            <img src={card.image} 
-                className={style.ingredient_image} 
-                onClick={setOpenModal}
-                alt={card.name}/>
-            <div className={`${style.price_flex} mt-1 mb-1`}>
-                <p className="text text_type_digits-medium mr-2">{card.price}</p>
-                <CurrencyIcon type="primary"/>
+        <section className={`${style.container} ${isDrag && style.container_moving} ${type !== 'bun' && isDisabled ? style.container_disabled : ''}`} ref={dragRef}>
+            <img className={style.ingredient_image} src={data.image} alt={data.name} />
+            <div className={style.price}>
+                <span className={`text text_type_digits-default`}>{data.price}</span>
+                <CurrencyIcon />
             </div>
-            <p className="text text_type_main-default">{card.name}</p>
-            <div className={style.ingredient_counter}>
-                <Counter count={0}
-                    size="default"
-                    extraClass="m-1"/>
-            </div>
-            {modalOpen && (
-                <Modal onClick={setCloseModal} 
-                    modalHeader="Детали ингредиента">
-                    <IngredientDetails card={card}/>
-                </Modal>)
-            }
+            
+            <h3 className={`${style.title} text text_type_main-default`}>{data.name}</h3>
+
+            {ingredientsCounter > 0 && (
+                <Counter count={ingredientsCounter} size="default"/>
+                )}
         </section>
     )
 }

@@ -1,29 +1,28 @@
 import { IngredientPropType } from '../../utils/types';
 
 import style from "./ingredient-details.module.css"
-import PropTypes from "prop-types";
 
-export const IngredientDetails = ({card}) => {
+export const IngredientDetails = ({ data }) => {
     return (
         <div className={style.elements_display_flex}>
-            <img src={card.image_large} alt={card.name} />
-            <h3 className="text text_type_main-medium mt-4 mb-8">{card.name}</h3>
+            <img src={data.image_large} alt={data.name} />
+            <h3 className="text text_type_main-medium mt-4 mb-8">{data.name}</h3>
             <ul className={`${style.ingredient_details_nutrition} mb-15`}>
                 <li className={style.elements_display_flex}>
                     <p className="text text_type_main-default text_color_inactive">Калории, ккал</p>
-                    <p className="text text_type_digits-default text_color_inactive">{card.calories}</p>
+                    <p className="text text_type_digits-default text_color_inactive">{data.calories}</p>
                 </li>
                 <li className={style.elements_display_flex}>
                     <p className="text text_type_main-default text_color_inactive">Белки, г</p>
-                    <p className="text text_type_digits-default text_color_inactive">{card.proteins}</p>
+                    <p className="text text_type_digits-default text_color_inactive">{data.proteins}</p>
                 </li>
                 <li className={style.elements_display_flex}>
                     <p className="text text_type_main-default text_color_inactive">Жиры, г</p>
-                    <p className="text text_type_digits-default text_color_inactive">{card.fat}</p>
+                    <p className="text text_type_digits-default text_color_inactive">{data.fat}</p>
                 </li>
                 <li className={style.elements_display_flex}>
                     <p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
-                    <p className="text text_type_digits-default text_color_inactive">{card.carbohydrates}</p>
+                    <p className="text text_type_digits-default text_color_inactive">{data.carbohydrates}</p>
                 </li>
             </ul>
         </div>
@@ -31,5 +30,5 @@ export const IngredientDetails = ({card}) => {
 }
 
 IngredientDetails.propTypes = {
-    card: IngredientPropType.isRequired,
+    data: IngredientPropType.isRequired,
 }
