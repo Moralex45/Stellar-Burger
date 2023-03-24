@@ -1,35 +1,39 @@
-import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Logo, BurgerIcon, ListIcon, ProfileIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./app-header.module.css"
 
 export const AppHeader = () => {
     return (
-        <header className={style.header_bar}>
-        <div className={style.header}>
-            <nav className={style.header_elements}>
-                <a>
-                    <button type="button"
-                        className={`${style.header_element}  ${style.header_element_constructor} pl-5 mt-4 mb-4`}>
-                        <BurgerIcon type="primary"/>
-                        <p className="text text_color_primary text_type_main-default ml-2">Конструктор</p>
-                    </button>
+        <header className={`${style.header} p-4`}>
+
+            <nav className={style.menu}>
+    
+            <ul className={style.list}>
+                <li>
+                <Button extraClass={`pt-4 pr-5 pb-4`} htmlType="button" type="secondary" size="medium">
+                    <a className={`${style.link} ${style.link_active}`} href="#">
+                    <BurgerIcon type="primary" /> Конструктор
+                    </a>
+                </Button>
+                </li>
+                <li>
+                <Button extraClass={`pt-4 pr-5 pb-4 pl-5`} htmlType="button" type="secondary" size="medium">
+                    <a className={style.link} href="#">
+                    <ListIcon type="secondary" /> Лента заказов
+                    </a>
+                </Button>
+                </li>
+            </ul>
+    
+            <Logo />
+    
+            <Button extraClass={`${style.profileButton} pt-4 pb-4 pl-5`} htmlType="button" type="secondary" size="medium">
+                <a className={style.link} href="#">
+                <ProfileIcon type="secondary" /> Личный кабинет
                 </a>
-                <a>
-                    <button type="button"
-                        className={`${style.header_element} ${style.header_element_orders} pl-5 ml-2 mt-4 mb-4`}>
-                        <ListIcon type="secondary"/>
-                        <p className="text text_color_inactive text_type_main-default ml-2">Лента заказов</p>
-                    </button>
-                </a>
+            </Button>
+    
             </nav>
-            <Logo/>
-            <a>
-                <button type="button"
-                    className={`${style.header_element} ${style.header_element_profile_icon} pl-5 mt-4 mb-4`}>
-                    <ProfileIcon type="secondary"/>
-                    <p className="text text_color_inactive text_type_main-default ml-2 mr-4">Личный кабинет</p>
-                </button>
-            </a>
-        </div>
-    </header>
+        
+      </header>
     )
 }
