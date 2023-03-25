@@ -22,7 +22,7 @@ export const BurgerConstructor = () => {
     const checkBun = !!bun.type;
     
     const createOrder = () => {
-        const ingredientsId = [bun, bun, ...ingredients.map((item) => item._id)];
+        const ingredientsId = [bun._id,...ingredients.map((item) => item._id), bun._id];
         dispatch(getOrderData(ingredientsId));
       };
     
