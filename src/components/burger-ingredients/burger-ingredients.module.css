@@ -3,12 +3,25 @@
     width: 600px;
 }
 
+.tabs {
+    display: flex;
+  }
+
+.list {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 24px;
+    row-gap: 32px;
+    list-style-type: none;
+}
+
 .ingredients_scroll {
-    height: 700px;
+    height: 716px;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    overflow-y: scroll;
 }
 
 .ingredients_scroll::-webkit-scrollbar {
