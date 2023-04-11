@@ -1,88 +1,93 @@
-import { useRef, useState } from 'react';
+import { useState,useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { IngredientsCard } from "../ingredients-card/ingredients-card";
-import { IngredientDetails } from "../ingredient-details/ingredient-details"
-import { Modal } from "../modal/modal";
-import { openIngredientDetailsPopup, closeIngredientDetailsPopup } from '../../services/actions/popupActions.js';
+import style from './burger-ingredients.module.css';
 
-import style from "./burger-ingredients.module.css";
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { IngredientsCard } from '../ingredients-card/ingredients-card.jsx';
+import { openIngredientDetailsPopup } from '../../services/actions/popupActions.js';
 
 export const BurgerIngredients = () => {
-    const data = useSelector((state) => state.ingredientReducer.ingredients);
-    const selectedIngrediend = useSelector((state) => state.popupReducer.selectedIngrediend);
-    const dispatch = useDispatch();
+  const data = useSelector((state) => state.ingredientReducer.ingredients);
+  const dispatch = useDispatch();
+  const location = useLocation();
 
-    const [current, setCurrent] = useState('');
-    const refBun = useRef(null);
-    const refSauce = useRef(null);
-    const refMain = useRef(null);
-  
-    const scrollTo = (ref) => {
-      ref.current.scrollIntoView({ block: 'start', behavior: 'smooth' });
-    };
-  
-    const handleClickTab = (tab) => {
-      setCurrent(tab);
-      if (tab === 'bun') {
-        scrollTo(refBun);
-      } else if (tab === 'sauce') {
-        scrollTo(refSauce);
-      } else if (tab === 'main') {
-        scrollTo(refMain);
-      }
-    };
+  const [current, setCurrent] = useState('');
+  const refBun = useRef(null);
+  const refSauce = useRef(null);
+  const refMain = useRef(null);
 
-    return (
-        <section className={`${style.main} mr-10`}>
-            <p className="text text-position text_type_main-large mt-10 mb-5">
-                Соберите бургер
-            </p>
+  const scrollTo = (ref) => {
+    ref.current.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  };
 
-            <div className={style.tabs}>
-                <Tab value='bun' active={current === 'bun'} onClick={() => handleClickTab('bun')}>Булки</Tab>
-                <Tab value='sauce' active={current === 'sauce'} onClick={() => handleClickTab('sauce')}>Соусы</Tab>
-                <Tab value='main' active={current === 'main'} onClick={() => handleClickTab('main')}>Начинки</Tab>
-            </div>
+  const handleClickTab = (tab) => {
+    setCurrent(tab);
+    if (tab === 'bun') {
+      scrollTo(refBun);
+    } else if (tab === 'sauce') {
+      scrollTo(refSauce);
+    } else if (tab === 'main') {
+      scrollTo(refMain);
+    }
+  };
 
-            <div className={style.ingredients_scroll}>
-                
-                <Waypoint onEnter={() => setCurrent('bun')} bottomOffset="90%" />
-                <h2 className={`text text_type_main-medium mt-10 mb-6`} ref={refBun}>Булки</h2>
-                <ul className={`${style.list} ml-4`}>
-                    {data.map((item) => ( item.type === 'bun' &&
-                        <li key={item._id} onClick={() => dispatch(openIngredientDetailsPopup(item))}>
-                            <IngredientsCard data={item} _id={item._id} name={item.name} type={item.type} price={item.price} image={item.image} />
-                    </li>))}
-                </ul>
+  return (
+    <section className={style.container}>
+      <h1 className={`text text_type_main-large mt-10 mb-5`}>Соберите бургер</h1>
 
-                <Waypoint onEnter={() => setCurrent('sauce')} bottomOffset="90%" />
-                <h2 className={`text text_type_main-medium mt-10 mb-6`} ref={refSauce}>Соусы</h2>
-                <ul className={`${style.list} ml-4`}>
-                    {data.map((item) => ( item.type === 'sauce' &&
-                        <li key={item._id} onClick={() => dispatch(openIngredientDetailsPopup(item))}>
-                            <IngredientsCard data={item} _id={item._id} name={item.name} type={item.type} price={item.price} image={item.image} />
-                    </li>))}
-                </ul>
+      <div className={style.tabs}>
+        <Tab value='bun' active={current === 'bun'} onClick={() => handleClickTab('bun')}>Булки</Tab>
+        <Tab value='sauce' active={current === 'sauce'} onClick={() => handleClickTab('sauce')}>Соусы</Tab>
+        <Tab value='main' active={current === 'main'} onClick={() => handleClickTab('main')}>Начинки</Tab>
+      </div>
 
-                <Waypoint onEnter={() => setCurrent('main')} bottomOffset="90%" />
-                <h2 className={`text text_type_main-medium mt-10 mb-6`} ref={refMain}>Начинки</h2>
-                <ul className={`${style.list} ml-4`}>
-                    {data.map((item) => ( item.type === 'main' &&
-                        <li key={item._id} onClick={() => dispatch(openIngredientDetailsPopup(item))}>
-                            <IngredientsCard data={item} _id={item._id} name={item.name} type={item.type} price={item.price} image={item.image} />
-                    </li>))}
-                </ul>
+      <div className={style.scrollbar}>
 
-            </div>
+      <Waypoint onEnter={() => setCurrent('bun')} bottomOffset="90%" />
+      <h2 className={`text text_type_main-medium mt-10 mb-6`} ref={refBun}>Булки</h2>
+        <ul className={`${style.list} ml-4`}>
 
-            {selectedIngrediend && 
-                (<Modal handleClose={() => dispatch(closeIngredientDetailsPopup())}>
-                    <IngredientDetails data={selectedIngrediend} />
-                </Modal>
-            )}
-        </section>
-    )
+          {data.map((item) => ( item.type === 'bun' &&
+          <li key={item._id} onClick={() => dispatch(openIngredientDetailsPopup(item))}>
+            <Link className={style.link} to={`/ingredients/${item._id}`} state={{ previousLocation: location }}>
+              <IngredientsCard data={item} _id={item._id} name={item.name} type={item.type} price={item.price} image={item.image} />
+            </Link>
+          </li>))}
+
+        </ul>
+
+        <Waypoint onEnter={() => setCurrent('sauce')} bottomOffset="90%" />
+        <h2 className={`text text_type_main-medium mt-10 mb-6`} ref={refSauce}>Соусы</h2>
+        <ul className={`${style.list} ml-4`}>
+
+          {data.map((item) => ( item.type === 'sauce' &&
+          <li key={item._id} onClick={() => dispatch(openIngredientDetailsPopup(item))}>
+            <Link className={style.link} to={`/ingredients/${item._id}`} state={{ previousLocation: location }}>
+              <IngredientsCard data={item} _id={item._id} name={item.name} type={item.type} price={item.price} image={item.image} />
+            </Link>
+          </li>))}
+
+        </ul>
+
+        <Waypoint onEnter={() => setCurrent('main')} bottomOffset="90%" />
+        <h2 className={`text text_type_main-medium mt-10 mb-6`} ref={refMain}>Начинки</h2>
+        <ul className={`${style.list} ml-4`}>
+
+          {data.map((item) => ( item.type === 'main' &&
+          <li key={item._id} onClick={() => dispatch(openIngredientDetailsPopup(item))}>
+            <Link className={style.link} to={`/ingredients/${item._id}`} state={{ previousLocation: location }}>
+              <IngredientsCard data={item} _id={item._id} name={item.name} type={item.type} price={item.price} image={item.image} />
+            </Link>
+          </li>))}
+
+        </ul>
+
+      </div>
+      
+    </section>
+  )
 }

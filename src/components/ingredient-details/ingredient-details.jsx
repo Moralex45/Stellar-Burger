@@ -1,34 +1,37 @@
-import { IngredientPropType } from '../../utils/types';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import style from "./ingredient-details.module.css"
+import style from './ingredient-details.module.css';
 
-export const IngredientDetails = ({ data }) => {
-    return (
-        <div className={style.elements_display_flex}>
-            <img src={data.image_large} alt={data.name} />
-            <h3 className="text text_type_main-medium mt-4 mb-8">{data.name}</h3>
-            <ul className={`${style.ingredient_details_nutrition} mb-15`}>
-                <li className={style.elements_display_flex}>
-                    <p className="text text_type_main-default text_color_inactive">Калории, ккал</p>
-                    <p className="text text_type_digits-default text_color_inactive">{data.calories}</p>
-                </li>
-                <li className={style.elements_display_flex}>
-                    <p className="text text_type_main-default text_color_inactive">Белки, г</p>
-                    <p className="text text_type_digits-default text_color_inactive">{data.proteins}</p>
-                </li>
-                <li className={style.elements_display_flex}>
-                    <p className="text text_type_main-default text_color_inactive">Жиры, г</p>
-                    <p className="text text_type_digits-default text_color_inactive">{data.fat}</p>
-                </li>
-                <li className={style.elements_display_flex}>
-                    <p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
-                    <p className="text text_type_digits-default text_color_inactive">{data.carbohydrates}</p>
-                </li>
-            </ul>
+export const IngredientDetails = () => {
+  const { id } = useParams();
+
+  const ingredients = useSelector((state) => state.ingredientReducer.ingredients);
+
+  const data = ingredients.find((ingredient) => ingredient._id === id);
+
+  return (
+    <>
+      {data && (
+        <div className={`${style.container} pt-10 pr-10 pb-15 pl-10`}>
+
+          <h2 className={`${style.title} text text_type_main-large`}>Детали ингредиента</h2>
+          <img className={`mb-4`} src={data.image_large} alt={data.name} />
+          <p className={`text text_type_main-medium mb-8`}>{data.name}</p>
+
+          <table className={style.table}>
+            <thead>
+              <tr className={`${style.headers} text text_type_main-default`}><th>Калории,ккал</th><th>Белки, г</th><th>Жиры, г</th><th>Углеводы, г</th></tr>
+            </thead>
+            <tbody>
+              <tr className={`${style.data} text text_type_digits-default`}><td>{data.calories}</td><td>{data.proteins}</td><td>{data.fat}</td><td>{data.carbohydrates}</td></tr>
+            </tbody>
+          </table>
+
         </div>
-    )
+      )}
+    </>
+  )
 }
 
-IngredientDetails.propTypes = {
-    data: IngredientPropType.isRequired,
-}

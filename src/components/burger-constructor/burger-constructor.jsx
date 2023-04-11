@@ -1,55 +1,66 @@
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import { Reorder } from 'framer-motion';
-import { Button, ConstructorElement,  DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import style from './burger-constructor.module.css';
 
 import CurrencyIcon from '../../images/CurrencyIcon.svg'; 
-import { OrderDetails } from "../order-details/order-details";
-import { Modal } from "../modal/modal";
-import { getOrderData, deleteOrder } from '../../services/actions/orderActions.js';
-import { addBun, addIngredient, countTotalPrice, deleteIngredient, sortIngredients } from '../../services/actions/ingredientsAction.js';
 
-import style from "./burger-constructor.module.css";
+import { ConstructorElement, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Modal } from '../modal/modal.jsx';
+import { OrderDetails } from '../order-details/order-details.jsx';
+
+import { getOrderData, deleteOrder } from '../../services/actions/orderActions.js';
+import { addBun, addIngredient, countTotalPrice, deleteIngredient, sortIngredients } from '../../services/actions/ingredientsAction';
 
 export const BurgerConstructor = () => {
-    
   const dispatch = useDispatch();
-    const bun = useSelector((state) => state.ingredientReducer.addedBun);
-    const ingredients = useSelector((state) => state.ingredientReducer.addedIngredients);
-    const totalPrice = useSelector((state) => state.ingredientReducer.totalPrice);
-    const orderNumber = useSelector(store => store.orderReducer.orderDetails);
-    const checkIngredient = ingredients.length > 0;
-    const checkBun = !!bun.type;
-    
-    const createOrder = () => {
-        const ingredientsId = [bun._id,...ingredients.map((item) => item._id), bun._id];
-        dispatch(getOrderData(ingredientsId));
-      };
-    
-    const handleDeleteIngredient = (item) => {
+  const navigate = useNavigate();
+  const bun = useSelector((state) => state.ingredientReducer.addedBun);
+  const ingredients = useSelector((state) => state.ingredientReducer.addedIngredients);
+  const totalPrice = useSelector((state) => state.ingredientReducer.totalPrice);
+  const profile = useSelector((state) => state.profileReducer.profile);
+
+  const orderNumber = useSelector(store => store.orderReducer.orderDetails);
+
+  const createOrder = () => {
+    const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
+    if (profile) {
+      dispatch(getOrderData(ingredientsId));
+        } else {
+      navigate('/login');
+    }
+  };
+
+  const handleDeleteIngredient = (item) => {
     dispatch(deleteIngredient(item));
     dispatch(countTotalPrice());
-    };
+  };
 
-    const [{ isHover }, dropRef] = useDrop(() => ({
-        accept: 'ingredient',
-        drop: (item) => {
-          if (item.type === 'bun') {
-            dispatch(addBun(item));
-          } else {
-            dispatch(addIngredient(item));
-          }
-            dispatch(countTotalPrice());
-        },
-        collect: (monitor) => ({
-          isHover: monitor.isOver()
-        })
-      }));
+  const [{ isHover }, dropRef] = useDrop(() => ({
+    accept: 'ingredient',
+    drop: (item) => {
+      if (item.type === 'bun') {
+        dispatch(addBun(item));
+      } else {
+        dispatch(addIngredient(item));
+      }
+        dispatch(countTotalPrice());
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver()
+    })
+  }));
 
-    const borderColor = isHover ? '#9400d3' : 'transparent';
+  const borderColor = isHover ? '#9400d3' : 'transparent';
 
-    return (
-      <section className={`${style.container} mt-20 pt-5 pb-5 pl-4`} ref={dropRef} style={{borderColor}}>
+  const checkIngredient = ingredients.length > 0;
+  const checkBun = !!bun.type;
+
+   return (
+    <section className={`${style.container} mt-20 pt-5 pb-5 pl-4`} ref={dropRef} style={{borderColor}}>
 
       {checkBun && 
         (<ConstructorElement extraClass={`ml-8 pr-4`} type='top' isLocked={true} text={`${bun.name} (верх)`} price={bun.price} thumbnail={bun.image} />)
@@ -84,5 +95,5 @@ export const BurgerConstructor = () => {
       )}
 
     </section>
-    )
+  )
 }
