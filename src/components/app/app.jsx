@@ -32,7 +32,9 @@ export const App = React.memo(() => {
   }, []);
 
   useEffect(() => {
-    dispatch(getProfileInfo(accessToken));
+    if (accessToken) {
+      dispatch(getProfileInfo(accessToken))
+    }
   }, [accessToken]);
 
   return (
@@ -45,7 +47,7 @@ export const App = React.memo(() => {
           <Route path='/login' element={<RouteUnauthorizedUser element={<LoginPage />}/>}/>
           <Route path='/register' element={<RouteUnauthorizedUser element={<RegisterPage />}/>}/>
           <Route path='/forgot-password' element={<RouteUnauthorizedUser element={<ForgotPasswordPage />}/>}/>
-          <Route path='/reset-password' element={<RouteUnauthorizedUser element={<ResetPasswordPage />}/>}/>
+          <Route path='/reset-password' element={<RouteUnauthorizedUser element={<ResetPasswordPage />} reset/>}/>
           <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />}/>}/>
         </Route>
       </Routes>

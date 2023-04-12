@@ -26,12 +26,17 @@ export const BurgerConstructor = () => {
   const orderNumber = useSelector(store => store.orderReducer.orderDetails);
 
   const createOrder = () => {
-    const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
-    if (profile) {
-      dispatch(getOrderData(ingredientsId));
-        } else {
-      navigate('/login');
-    }
+    var bun_empty = (Object.keys(bun).length === 0)
+    if (!bun_empty) {
+      const ingredientsId = [bun._id,...ingredients.map((item) => item._id), bun._id];
+      if (profile) {
+        dispatch(getOrderData(ingredientsId));
+          } else {
+        navigate('/login');
+      }
+    }else {
+      alert("В заказе отсутствуют ингредиенты..")
+    }    
   };
 
   const handleDeleteIngredient = (item) => {
@@ -85,7 +90,15 @@ export const BurgerConstructor = () => {
       <div className={`${style.price_container} mt-10 mr-4`}>
         <span className={`text text_type_digits-medium mr-2`}>{totalPrice}</span>
         <img className={`mr-10`} src={CurrencyIcon} alt='Межгалактическая валюта.'/>
-        <Button htmlType="button" type="primary" size="large" onClick={() => createOrder()}>Оформить заказ</Button>
+        <Button 
+          htmlType="button" 
+          type="primary" 
+          size="large" 
+          onClick={() => createOrder()}
+        >
+          Оформить заказ
+        </Button>
+
       </div>
 
       {orderNumber && 

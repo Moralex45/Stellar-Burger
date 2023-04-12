@@ -40,7 +40,6 @@ export const Modal = ({ handleClose, children }) => {
         </button>
 
          {children}
-    
       </div>
     </ModalOverlay>, root
   );

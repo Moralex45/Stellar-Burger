@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink, useLocation, Link } from 'react-router-dom';
 
 import style from './app-header.module.css';
@@ -7,6 +8,7 @@ import { BurgerIcon, ListIcon, ProfileIcon, Logo, Button } from '@ya.praktikum/r
 
 export const AppHeader = () => {
   const location = useLocation();
+  const profile = useSelector((state) => state.profileReducer.profile);
 
   return (
     <header className={`${style.header} pt-4 pb-4`}>
@@ -36,7 +38,10 @@ export const AppHeader = () => {
 
         <Button extraClass={`${style.profileButton} pt-4 pb-4 pl-5`} htmlType="button" type="secondary" size="medium">
           <NavLink to="/profile" className={({ isActive }) => isActive ? style.link_active : style.link}>
-            <ProfileIcon type={location.pathname === '/profile' ? 'primary' : 'secondary'} /> Личный кабинет
+            <ProfileIcon type={location.pathname === '/profile' ? 'primary' : 'secondary'} />
+            <span >
+              {profile ? profile.name : 'Личный кабинет'}
+            </span>
           </NavLink>
         </Button>
 
