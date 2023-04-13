@@ -1,39 +1,52 @@
-import { Logo, BurgerIcon, ListIcon, ProfileIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import style from "./app-header.module.css"
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { NavLink, useLocation, Link } from 'react-router-dom';
+
+import style from './app-header.module.css';
+
+import { BurgerIcon, ListIcon, ProfileIcon, Logo, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 export const AppHeader = () => {
-    return (
-        <header className={`${style.header} p-4`}>
+  const location = useLocation();
+  const profile = useSelector((state) => state.profileReducer.profile);
 
-            <nav className={style.menu}>
-    
-            <ul className={style.list}>
-                <li>
-                <Button extraClass={`pt-4 pr-5 pb-4`} htmlType="button" type="secondary" size="medium">
-                    <a className={`${style.link} ${style.link_active}`} href="#">
-                    <BurgerIcon type="primary" /> Конструктор
-                    </a>
-                </Button>
-                </li>
-                <li>
-                <Button extraClass={`pt-4 pr-5 pb-4 pl-5`} htmlType="button" type="secondary" size="medium">
-                    <a className={style.link} href="#">
-                    <ListIcon type="secondary" /> Лента заказов
-                    </a>
-                </Button>
-                </li>
-            </ul>
-    
-            <Logo />
-    
-            <Button extraClass={`${style.profileButton} pt-4 pb-4 pl-5`} htmlType="button" type="secondary" size="medium">
-                <a className={style.link} href="#">
-                <ProfileIcon type="secondary" /> Личный кабинет
-                </a>
+  return (
+    <header className={`${style.header} pt-4 pb-4`}>
+
+      <nav className={style.menu}>
+
+        <ul className={style.list}>
+          <li>
+            <Button extraClass={`pt-4 pr-5 pb-4`} htmlType="button" type="secondary" size="medium">
+              <NavLink to="/" className={({ isActive }) => isActive ? style.link_active : style.link}>
+                <BurgerIcon type={location.pathname === '/' ? 'primary' : 'secondary'} /> Конструктор
+              </NavLink>
             </Button>
-    
-            </nav>
-        
-      </header>
-    )
-}
+          </li>
+          <li>
+            <Button extraClass={`pt-4 pr-5 pb-4 pl-5`} htmlType="button" type="secondary" size="medium">
+              <NavLink to='/not-found' className={({ isActive }) => isActive ? style.link_active : style.link}>
+                <ListIcon type={location.pathname === '/not-found' ? 'primary' : 'secondary'} /> Лента заказов
+              </NavLink>
+            </Button>
+          </li>
+        </ul>
+
+        <Link to='/'>
+          <Logo />
+        </Link>
+
+        <Button extraClass={`${style.profileButton} pt-4 pb-4 pl-5`} htmlType="button" type="secondary" size="medium">
+          <NavLink to="/profile" className={({ isActive }) => isActive ? style.link_active : style.link}>
+            <ProfileIcon type={location.pathname === '/profile' ? 'primary' : 'secondary'} />
+            <span >
+              {profile ? profile.name : 'Личный кабинет'}
+            </span>
+          </NavLink>
+        </Button>
+
+      </nav>
+      
+    </header>
+  );
+};
