@@ -43,4 +43,13 @@ export type TModalProps = {
 export type TIngredientProps = {
     data: TIngredient;
 };
-  
+
+export type TWsOrdersActions = {
+    wsInit: string;
+    wsFailed: string;
+    onOpen: string;
+    onMessage: string;
+    onClose: string;
+    onError: string;
+    wsDisconnect: string;
+  };
