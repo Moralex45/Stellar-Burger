@@ -8,7 +8,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsCard } from '../ingredients-card/ingredients-card';
 import { changeIngredientPopupState } from '../../services/actions/popupActions';
 
-export const BurgerIngredients = () => {
+export const BurgerIngredients: FC = () => {
   const data = useSelector((state) => state.ingredientReducer.ingredients);
   const dispatch = useDispatch();
   const location = useLocation();
