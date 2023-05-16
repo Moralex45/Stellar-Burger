@@ -2,7 +2,7 @@ import { Middleware } from "redux";
 import { getCookie } from '../../utils/cookie';
 import { TWsOrdersActions } from '../types/types';
 
-export const spcketMiddleware = (wsUrl: string, wsActions: TWsOrdersActions): Middleware => {
+export const socketMiddleware = (wsUrl: string, wsActions: TWsOrdersActions): Middleware => {
     return store => {
         let socket: WebSocket | null = null;
 
