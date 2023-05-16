@@ -1,18 +1,19 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { Action, ActionCreator } from 'redux';
+import { Action, ActionCreator, Dispatch } from 'redux';
 
 import { store } from '../store';
-
 import { TIngredientsActions } from '../actions/ingredientsAction';
 import { TOrderActions } from '../actions/orderActions';
+import { TOrdersActions } from '../actions/ordersActions';
 import { TPopupActions } from '../actions/popupActions';
 import { TProfileActions } from '../actions/profileActions';
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>; 
 
 export type TApplicationActions = 
   | TIngredientsActions
   | TOrderActions
+  | TOrdersActions
   | TPopupActions
   | TProfileActions;
 
