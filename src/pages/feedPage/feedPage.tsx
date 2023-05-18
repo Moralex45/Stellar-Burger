@@ -12,8 +12,6 @@ import { wsAllOrdersConnectionStart, wsAllOrdersConnectionDisconnect } from '../
 export const FeedPage: FC = () => {
   const dispatch = useDispatch();
   const allOrders = useSelector((state) => state.ordersReducer.allOrders);
-  const total = useSelector((state) => state.ordersReducer.total);
-  const totalToday = useSelector((state) => state.ordersReducer.totalToday);
 
   useEffect(() => {
     dispatch(wsAllOrdersConnectionStart());
@@ -24,14 +22,12 @@ export const FeedPage: FC = () => {
 
   return (
     <>
-      {allOrders.length > 0 && total && totalToday ? (
+      {
         <div className={`${style.container} mt-10`}>
           <OrdersList />
           <OrdersDashboard />
         </div>
-      ) : (
-        <Loader />
-      )}
+      }
     </>
   )
 };

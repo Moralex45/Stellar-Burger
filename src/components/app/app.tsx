@@ -87,7 +87,7 @@ export const App = React.memo(() => {
             path='/ingredients/:id'
             element={
               <Modal handleClose={() => handleIngredientPopupClose()}>
-                <IngredientDetails />
+                <IngredientPage />
               </Modal>
             }
           />

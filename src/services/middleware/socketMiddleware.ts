@@ -15,7 +15,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsOrdersActions): Mi
                 onMessage, 
                 onClose, 
                 onError,
-                wsDisconnect } = wsActions;
+                } = wsActions;
 
             const { profile } = getState().profileReducer;
 
@@ -24,10 +24,6 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsOrdersActions): Mi
                };
             if (type === wsInit && !profile) {
                 socket = new WebSocket(`${wsUrl}`);
-            }
-
-            if (type === wsDisconnect) {
-                socket?.close(1000, "Switching off the user")
             }
 
             if (socket) {

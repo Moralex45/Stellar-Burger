@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useSelector } from '../../services/types/hooks';
-import { useLocation, NavLink } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 import style from './ordersList.module.css';
 
@@ -18,17 +18,13 @@ export const OrdersList: FC = () => {
 
       <div className={style.scrollbar}>
         <ul className={style.list}>
-
-          {allOrders.length > 0 ? (
+          {
             allOrders?.map((order, index) => (
-              <NavLink className={style.link} to={`/feed/${order._id}`} key={index} state={{ previousLocationFeed: location }}>
+              <Link className={style.link} to={`/feed/${order._id}`} key={index} state={{ previousLocationFeed: location }}>
                 <OrderItem order={order} isUserOrders={false} />
-              </NavLink>
+              </Link>
             ))            
-          ) : (
-            <Loader />
-          )}
-
+          }
         </ul>
       </div>
 

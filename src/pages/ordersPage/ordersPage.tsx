@@ -1,6 +1,6 @@
 import React, { useEffect, FC } from 'react';
 import { useSelector, useDispatch } from '../../services/types/hooks';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import style from './ordersPage.module.css';
 
@@ -32,9 +32,9 @@ export const OrdersPage: FC = () => {
       
           {userOrders.length > 0 ? (
             userOrders?.map((order, index) => (
-              <NavLink className={style.link} to={`/profile/orders/${order._id}`} key={index} state={{ previousLocationOrders: location }}>
+              <Link className={style.link} to={`/profile/orders/${order._id}`} key={index} state={{ previousLocationOrders: location }}>
                 <OrderItem order={order} isUserOrders={true} />
-              </NavLink>
+              </Link>
             ))
           ) : (
             <Loader />
@@ -45,5 +45,3 @@ export const OrdersPage: FC = () => {
     </section>
   )
 };
-
-export default OrdersPage;
