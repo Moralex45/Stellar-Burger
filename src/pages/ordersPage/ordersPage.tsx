@@ -29,15 +29,14 @@ export const OrdersPage: FC = () => {
 
       <div className={style.scrollbar}>
         <ul className={style.list}>
-      
           {
             userOrders?.map((order, index) => (
+              
               <Link className={style.link} to={`/profile/orders/${order._id}`} key={index} state={{ previousLocationOrders: location }}>
                 <OrderItem order={order} isUserOrders={true} />
               </Link>
             ))
           }
-
         </ul>
       </div>
     </section>

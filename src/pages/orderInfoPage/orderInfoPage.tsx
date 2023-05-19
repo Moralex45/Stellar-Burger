@@ -1,5 +1,5 @@
 import React, { useEffect, FC } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../services/types/hooks';
 
 import styles from './orderInfoPage.module.css';
@@ -18,18 +18,19 @@ import { TOrderInfoPageProps, TOrder } from '../../services/types/types';
 
 export const OrderInfoPage: FC<TOrderInfoPageProps> = ({ isUserOrder }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { id } = useParams();
   const allOrders = useSelector((state) => state.ordersReducer.allOrders);
   const userOrders = useSelector((state) => state.ordersReducer.userOrders);
   const allIngredients = useSelector((state) => state.ingredientReducer.ingredients);
 
   useEffect(() => {
-    if (isUserOrder && userOrders.length === 0) {
+    if (location.pathname.startsWith('/profile')) {
       dispatch(wsUserOrdersConnectionStart());
       return () => {
         dispatch(wsUserOrdersConnectionDisconnect());
       };
-    } else if (!isUserOrder && allOrders.length === 0) {
+    } else if ((location.pathname.startsWith('/feed'))) {
       dispatch(wsAllOrdersConnectionStart());
       return () => {
         dispatch(wsAllOrdersConnectionDisconnect());
