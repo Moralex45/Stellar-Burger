@@ -6,7 +6,6 @@ import { TWsOrdersActions } from '../types/types';
 export const socketMiddleware = (wsUrl: string, wsActions: TWsOrdersActions, withToken = false): Middleware => {
 
     return store => {
-        const accessToken = getCookie('token');
         let socket: WebSocket | null = null;
 
         return next => action => {
@@ -21,7 +20,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsOrdersActions, wit
                 } = wsActions;
             
               if (type === wsInit && withToken) {
-                  socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
+                  socket = new WebSocket(`${wsUrl}?token=${getCookie('token')}`);
                 };
               if (type === wsInit && !withToken) {
                   socket = new WebSocket(`${wsUrl}`);
