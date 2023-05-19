@@ -3,10 +3,10 @@ import { getCookie } from '../../utils/cookie';
 import { useSelector } from '../../services/types/hooks';
 import { TWsOrdersActions } from '../types/types';
 
-export const socketMiddleware = (wsUrl: string, wsActions: TWsOrdersActions): Middleware => {
+export const socketMiddleware = (wsUrl: string, wsActions: TWsOrdersActions, withToken = false): Middleware => {
 
     return store => {
-      const accessToken = getCookie('token');
+        const accessToken = getCookie('token');
         let socket: WebSocket | null = null;
 
         return next => action => {
@@ -20,12 +20,12 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsOrdersActions): Mi
                 onError,
                 } = wsActions;
             
-            if (type === wsInit && accessToken) {
-                socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
-              };
-            if (type === wsInit && !accessToken) {
-                socket = new WebSocket(`${wsUrl}`);
-            }
+              if (type === wsInit && withToken) {
+                  socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
+                };
+              if (type === wsInit && !withToken) {
+                  socket = new WebSocket(`${wsUrl}`);
+              }
 
             if (socket) {
                 socket.onopen = event => {
