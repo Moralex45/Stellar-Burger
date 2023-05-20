@@ -7,7 +7,6 @@ import style from './app-header.module.css';
 
 export const AppHeader: FC = () => {
   const location = useLocation();
-  const profile = useSelector((state) => state.profileReducer.profile);
 
   return (
     <header className={`${style.header} pt-4 pb-4`}>
@@ -24,8 +23,8 @@ export const AppHeader: FC = () => {
           </li>
           <li>
             <Button extraClass={`pt-4 pr-5 pb-4 pl-5`} htmlType="button" type="secondary" size="medium">
-              <NavLink to='/not-found' className={({ isActive }) => isActive ? style.link_active : style.link}>
-                <ListIcon type={location.pathname === '/not-found' ? 'primary' : 'secondary'} /> Лента заказов
+              <NavLink to='/feed' className={({ isActive }) => isActive ? style.link_active : style.link}>
+                <ListIcon type={location.pathname === '/feed' ? 'primary' : 'secondary'} /> Лента заказов
               </NavLink>
             </Button>
           </li>
@@ -37,10 +36,7 @@ export const AppHeader: FC = () => {
 
         <Button extraClass={`${style.profileButton} pt-4 pb-4 pl-5`} htmlType="button" type="secondary" size="medium">
           <NavLink to="/profile" className={({ isActive }) => isActive ? style.link_active : style.link}>
-            <ProfileIcon type={location.pathname === '/profile' ? 'primary' : 'secondary'} />
-            <span >
-              {profile ? profile.name : 'Личный кабинет'}
-            </span>
+            <ProfileIcon type={location.pathname === '/profile' || location.pathname === '/profile/orders' ? 'primary' : 'secondary'} /> Личный кабинет
           </NavLink>
         </Button>
 
