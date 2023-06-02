@@ -24,8 +24,8 @@ export const Modal: FC<TModalProps> = ({ handleClose = () => {}, children }) => 
   
   return createPortal (
     <ModalOverlay handleClose={handleClose}>
-      <div className={style.modal} onClick={(e) => e.stopPropagation()}>
-        <button className={style.button} onClick={handleClose} >
+      <div className={style.modal} onClick={(e) => e.stopPropagation()} data-testid="modalContainer">
+        <button className={style.button} onClick={handleClose} data-testid="modalCloseButton">
           <CloseIcon type="primary" />
         </button>
 

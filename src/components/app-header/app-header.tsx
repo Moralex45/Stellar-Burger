@@ -4,9 +4,13 @@ import { NavLink, useLocation, Link } from 'react-router-dom';
 import { BurgerIcon, ListIcon, ProfileIcon, Logo, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import style from './app-header.module.css';
+import { getCookie } from '../../utils/cookie';
 
 export const AppHeader: FC = () => {
   const location = useLocation();
+
+  const accessToken = getCookie('token');
+  const profile = useSelector((state) => state.profileReducer.profile);
 
   return (
     <header className={`${style.header} pt-4 pb-4`}>
@@ -34,9 +38,10 @@ export const AppHeader: FC = () => {
           <Logo />
         </Link>
 
-        <Button extraClass={`${style.profileButton} pt-4 pb-4 pl-5`} htmlType="button" type="secondary" size="medium">
-          <NavLink to="/profile" className={({ isActive }) => isActive ? style.link_active : style.link}>
-            <ProfileIcon type={location.pathname === '/profile' || location.pathname === '/profile/orders' ? 'primary' : 'secondary'} /> Личный кабинет
+        <Button extraClass={`${style.profileButton} pt-4 pb-4 pl-5`} htmlType="button" type="secondary" size="medium" >
+          <NavLink to="/profile" className={({ isActive }) => isActive ? style.link_active : style.link} data-testid="personalText">
+            <ProfileIcon type={location.pathname === '/profile' || location.pathname === '/profile/orders' ? 'primary' : 'secondary'} /> 
+            {accessToken && profile ? profile.name : 'Личный кабинет'}
           </NavLink>
         </Button>
 

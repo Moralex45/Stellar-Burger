@@ -75,22 +75,27 @@ export const BurgerConstructor: FC = () => {
       className={`${style.container} mt-20 pt-5 pb-5 pl-4`} 
       ref={dropRef} 
       style={{borderColor}}
+      data-test="constructorContainer"
       >
 
       {checkBun && (
-        <ConstructorElement 
-          extraClass={`ml-8 pr-4`} 
-          type='top' isLocked={true} 
-          text={`${bun.name} (верх)`} 
-          price={bun.price} 
-          thumbnail={bun.image} 
-        />)
+        <div data-test="constructorBunTop">
+          <ConstructorElement 
+            extraClass={`ml-8 pr-4`} 
+            type='top' isLocked={true} 
+            text={`${bun.name} (верх)`} 
+            price={bun.price} 
+            thumbnail={bun.image}
+          />
+        </div>
+        )
       }
 
       <Reorder.Group 
         className={style.scrollbar}
         values={ingredients} 
         onReorder={(items) => dispatch(sortIngredients(items))}
+        data-test="constructorInnerItems"
       >
           
         {ingredients.map((item: TIngredient) => (
@@ -103,15 +108,18 @@ export const BurgerConstructor: FC = () => {
 
       </Reorder.Group>
       
-      {checkBun && 
-        (<ConstructorElement 
-          extraClass={`ml-8 pr-4`} 
-          type='bottom' 
-          isLocked={true} 
-          text={`${bun.name} (низ)`} 
-          price={bun.price} 
-          thumbnail={bun.image} 
-        />)
+      {checkBun && (
+        <div data-test="constructorBunBottom">
+          <ConstructorElement 
+            extraClass={`ml-8 pr-4`} 
+            type='bottom' 
+            isLocked={true} 
+            text={`${bun.name} (низ)`} 
+            price={bun.price} 
+            thumbnail={bun.image} 
+          />
+        </div>
+        )
       }
       
       <div className={`${style.price_container} mt-10 mr-4`}>
@@ -122,6 +130,7 @@ export const BurgerConstructor: FC = () => {
           type="primary" 
           size="large" 
           onClick={() => createOrder()}
+          data-test="submitOrderButton"
         >
           Оформить заказ
         </Button>
