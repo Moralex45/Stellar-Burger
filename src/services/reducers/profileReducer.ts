@@ -55,7 +55,7 @@ type TOrdersState = {
   sendProfileDataFaild: boolean;
 }
 
-const initialState: TOrdersState = {
+export const initialState: TOrdersState = {
   //Данные авторизованного пользователя
   profile: null,
   //состояния для сброса пароля на странице /forgot-password

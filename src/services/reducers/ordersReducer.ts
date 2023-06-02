@@ -25,7 +25,7 @@ import { WS_All_ORDERS_CONNECTION_SUCCESS,
     totalToday: number | null;
   }
   
-  const initialState: TOrdersState = {
+  export const initialState: TOrdersState = {
     allOrders: [],
     wsAllOrdersConnectSuccess: false,
     wsAllOrdersConnectFailed: false,

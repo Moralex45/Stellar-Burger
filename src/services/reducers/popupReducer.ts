@@ -9,7 +9,7 @@ type TPopupState = {
   isOrderDetailsPopupOpen: boolean;
 }
 
-const initialState: TPopupState = {
+export const initialState: TPopupState = {
   isIngredientPopupOpen: false,
   isOrderPopupOpen: false,
   isOrderDetailsPopupOpen: false,
