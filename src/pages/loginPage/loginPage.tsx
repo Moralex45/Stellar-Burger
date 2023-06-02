@@ -43,6 +43,7 @@ export const LoginPage: FC = () => {
               value={email} 
               name={'email'} 
               isIcon={false} 
+              data-testid="email_input"
             />
   
             <Input extraClass='mb-6' 
@@ -56,6 +57,7 @@ export const LoginPage: FC = () => {
               onIconClick={() => setVisible(!isVisible)}
               errorText={'Ошибка'}
               size={'default'}
+              data-testid="password_input"
             />
   
             <Button extraClass='mb-20' htmlType='submit' type='primary' size='medium'>Войти</Button>

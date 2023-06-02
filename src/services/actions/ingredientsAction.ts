@@ -81,7 +81,10 @@ export const getIngredients = () => (dispatch: AppDispatch) => {
     })
 };
 
-export const addBun = (payload: TAddedIngredient): IAddBunAction => ({ type: ADD_BUN, payload });
+export const addBun = (payload: TAddedIngredient): IAddBunAction => ({ 
+  type: ADD_BUN, 
+  payload 
+});
 
 export const addIngredient = (payload: TAddedIngredient): IAddIngredientAction => ({
   type: ADD_INGREDIENT,
