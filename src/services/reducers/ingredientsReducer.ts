@@ -20,7 +20,7 @@ type TIngredientsState = {
   totalPrice: number;
 };
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,

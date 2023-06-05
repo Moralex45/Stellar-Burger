@@ -39,7 +39,7 @@ export const IngredientsCard: FC<TIngredientProps> = ({ data }) => {
   }, [addedBun, type]);
 
   return (
-    <div className={`${style.container} ${isDrag && style.container_moving} ${type !== 'bun' && isDisabled ? style.container_disabled : ''}`} ref={dragRef}>
+    <div className={`${style.container} ${isDrag && style.container_moving} ${type !== 'bun' && isDisabled ? style.container_disabled : ''}`} ref={dragRef} data-test="ingredientListItem">
       <img className={style.image} src={data.image} alt={data.name} />
 
       <div className={style.price}>

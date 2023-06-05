@@ -1,4 +1,5 @@
 # Stellar Burgers
+Доступно по адресу - https://moralex45.github.io/stellar-burger/
 
 ## Описание
 Stellar-Burger Яндекс.Приктикум 2023г.
